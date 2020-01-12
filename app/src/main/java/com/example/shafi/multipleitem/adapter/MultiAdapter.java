@@ -1,5 +1,6 @@
 package com.example.shafi.multipleitem.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -24,10 +25,10 @@ public class MultiAdapter extends RecyclerView.Adapter<MultiAdapter.MultiViewHol
 
     private Context context;
     private ArrayList<Employee> employees;
+    ArrayList<Integer> listPosition = new ArrayList<>();
+    int x,y,z;
 
     public static boolean item = false;
-    String id;
-    int f;
 
     public MultiAdapter(Context context, ArrayList<Employee> employees) {
         this.context = context;
@@ -65,98 +66,157 @@ public class MultiAdapter extends RecyclerView.Adapter<MultiAdapter.MultiViewHol
         private LinearLayout parentLayout;
 
 
+        @SuppressLint("ClickableViewAccessibility")
         MultiViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.textView);
-            imageView = itemView.findViewById(R.id.imageView);
+//            imageView = itemView.findViewById(R.id.imageView);
             parentLayout = itemView.findViewById(R.id.parentLayout);
 
-            parentLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("tagposition",getPosition()+"");
-                    OnTouch touch = new OnTouch();
-                    touch.onTouch(v,event);
-                    return true;
-                }
-            });
+            boolean item = true;
+            boolean item1 = false;
 
-//            parentLayout.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View v, MotionEvent event) {
+//            if(item){
+//                item1 = true;
 //
-//                    OnTouch touch = new OnTouch();
-//                    touch.onTouch(v,event);
-//                    return true;
-//                }
-//            });
+//                parentLayout.setOnTouchListener(new View.OnTouchListener() {
+//                    @Override
+//                    public boolean onTouch(View v, MotionEvent event) {
+//
+//                        listPosition.add(getPosition());
+//                         x = listPosition.get(0);
+//                         y = listPosition.get(listPosition.size() -1);
+//                         z = x + 1;
+//
+//                        Log.d("tag","arrayList"+ listPosition);
+//                        Log.d("tag","first"+ x);
+//                        Log.d("tag","last"+ y);
+////                    Log.d("tag7","Z"+ z);
+//
+//                        if(listPosition.size() == 10) {
+//                            listPosition.clear();
+//
+//                        }else {
+//                            Log.d("tag","Wrong button click");
+//                        }
+//
+//
+//                        return true;
+//                    }
+//                });
+//
+//            }else if(item1){
+//
+//                parentLayout.setOnTouchListener(new View.OnTouchListener() {
+//                    @Override
+//                    public boolean onTouch(View v, MotionEvent event) {
+//
+//                        listPosition.add(getPosition());
+////                        int x = listPosition.get(0);
+////                        int y = listPosition.get(listPosition.size() -1);
+////                        int z = x + 1;
+//
+//                        if(z == y){
+//                            Log.d("tag","Ok");
+//                            v.setOnTouchListener(  new View.OnTouchListener() {
+//                                @Override
+//                                public boolean onTouch(View v, MotionEvent event) {
+//
+//                                    Log.d("tag","first"+ getPosition());
+//
+//                                    OnTouch touch = new OnTouch();
+//                                    touch.onTouch(v,event);
+//                                    return true;
+//                                }
+//                            });
+//
+//                        }else if(listPosition.size() == 10) {
+//                            listPosition.clear();
+//
+//                        }else {
+//                            Log.d("tag","Wrong button click");
+//                        }
+//
+//                        return false;
+//                    }
+//                });
+//
+//            }
+
+
+
+            if(item){
+                item1 = true;
+
+                parentLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        listPosition.add(getPosition());
+                    int x = listPosition.get(0);
+                    int y = listPosition.get(listPosition.size() -1);
+                    int z = x + 1;
+
+                        Log.d("tag","arrayList"+ listPosition);
+                    Log.d("tag","first"+ x);
+                    Log.d("tag","last"+ y);
+//                    Log.d("tag7","Z"+ z);
+
+
+                    if(z == y){
+                        Log.d("tag","Ok");
+                        v.setOnTouchListener(  new View.OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+
+                                Log.d("tag","first"+ getPosition());
+
+                                OnTouch touch = new OnTouch();
+                                touch.onTouch(v,event);
+                                return true;
+                            }
+                        });
+
+                    }else if(listPosition.size() == 4) {
+                        listPosition.clear();
+//                        Log.d("tag7","Not Ok");
+//                        Toast.makeText(context, "not listed", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Log.d("tag","Wrong button click");
+                    }
+
+                    }
+                });
+
+
+            }
+
+
+
         }
 
 
 
 
-        void bind(final Employee employee) {
-            imageView.setVisibility(employee.isChecked() ? View.VISIBLE : View.GONE);
-            textView.setText(employee.getName());
-
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
+//        void bind(final Employee employee) {
+//            imageView.setVisibility(employee.isChecked() ? View.VISIBLE : View.GONE);
+//            textView.setText(employee.getName());
 //
-//                        employee.setChecked(!employee.isChecked());
-//                        imageView.setVisibility(employee.isChecked() ? View.VISIBLE : View.GONE);
-//
-//
-//                }
-//            });
-
-//            itemView.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View v, MotionEvent event) {
-//
-//                    OnTouch touch = new OnTouch();
-//                    touch.onTouch(v,event);
-//                    return true;
-//                }
-//            });
-
-
-        }
+//        }
     }
 
     public ArrayList<Employee> getAll() {
         return employees;
     }
 
-//    public ArrayList<Employee> getSelected() {
-//        ArrayList<Employee> selected = new ArrayList<>();
-//        for (int i = 0; i < employees.size(); i++) {
-//            if (employees.get(i).isChecked()) {
-//                selected.add(employees.get(i));
-//            }
-//        }
-//        return selected;
-//    }
-
     public ArrayList<Employee> getSelected() {
         ArrayList<Employee> selected = new ArrayList<>();
-        ArrayList<Employee> selectedItem = new ArrayList<>();
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).isChecked()) {
                 selected.add(employees.get(i));
-                id = String.valueOf(selectedItem.add(employees.get(i)));
-                f = Integer.parseInt(id + 1);
-                item = true;
-                break;
-            }if(item){
-                selected.add(employees.get(f));
-                Toast.makeText(context, "second selected", Toast.LENGTH_SHORT).show();
-
-            }else {
-                Toast.makeText(context, "no selected", Toast.LENGTH_SHORT).show();
             }
-
         }
         return selected;
     }
+
 }

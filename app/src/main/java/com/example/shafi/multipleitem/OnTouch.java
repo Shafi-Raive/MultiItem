@@ -4,28 +4,33 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+
 public class OnTouch {
+
+    public  static float xAxis = 0f;
+    public  static float yAxis = 0f;
+    public  static float lastYAxis = 0f;
+    public  static float lastXAxis = 0f;
+    public  static  boolean changeActivity = false;
 
     public boolean onTouch(View v, MotionEvent event) {
         final  int actionPeformed = event.getAction();
-        float xAxis = 0f;
-        float yAxis = 0f;
 
-        float lastXAxis = 0f;
-        float lastYAxis = 0f;
+        MultipleSelectionActivity multipleSelectionActivity;
+
         switch(actionPeformed){
             case MotionEvent.ACTION_DOWN:{
                 final float x = event.getX();
                 final float y = event.getY();
 
-                lastXAxis = x;
-                lastYAxis = y;
+                lastXAxis = Float.parseFloat(Float.toString(x));
+                lastYAxis = Float.parseFloat(Float.toString(y));
 
 //                            valuX.setText("X:"+Float.toString(lastXAxis));
 //                            moveX.setText("Y:"+Float.toString(lastYAxis));
 
-                Log.d("tag", "X :"+Float.toString(lastXAxis));
-                Log.d("tag", "Y :"+Float.toString(lastYAxis));
+                Log.d("tag", "X :"+lastXAxis);
+                Log.d("tag", "Y :"+lastYAxis);
 
                 break;
             }
@@ -38,16 +43,13 @@ public class OnTouch {
                 final float dy = y - lastYAxis;
 
                 xAxis += dx;
-                yAxis += dy;
-                // yAxis = 500000 + yAxis;
-
-
-//                            valuX.setText("Move_X:"+Float.toString(xAxis));
-//                            moveX.setText("Move_Y:"+Float.toString(yAxis));
+                yAxis = dy;
 
 
 
-                Log.d("tag", "MOV X :"+Float.toString(xAxis));
+
+//                Log.d("tag", "MOV X :"+Float.toString(xAxis));
+//                yAxis = height - yAxis;
                 Log.d("tag", "MOV Y :"+Float.toString(yAxis));
                 break;
 
@@ -57,8 +59,7 @@ public class OnTouch {
         return true;
     }
 
-    public void touchValue(){
 
-    }
+
 
 }
